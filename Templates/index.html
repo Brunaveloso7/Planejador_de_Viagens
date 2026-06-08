@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Viagens</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h1>Compartilhe sua viagem 🌎</h1>
+
+<form action="/post" method="POST">
+    <input type="text" name="destino" placeholder="Destino">
+    <input type="number" name="planejado" placeholder="Valor planejado">
+    <input type="number" name="real" placeholder="Valor real">
+    <textarea name="comentario" placeholder="Comentário"></textarea>
+
+    <button type="submit">Postar</button>
+</form>
+
+<h2>Viagens da galera</h2>
+
+{% for post in posts %}
+<div class="post">
+    <h3>{{ post.destino }}</h3>
+    <p>Planejado: {{ post.planejado }}</p>
+    <p>Real: {{ post.real }}</p>
+    <p>{{ post.comentario }}</p>
+</div>
+{% endfor %}
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
