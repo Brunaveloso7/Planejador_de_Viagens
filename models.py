@@ -1,17 +1,21 @@
 from database import db
 from datetime import datetime
 
+
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(100), nullable=False)
+    data_cadastro = db.Column(db.DateTime, default=datetime.utcnow)
+
 
 class Experiencia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=True)
 
+    nome_usuario = db.Column(db.String(100), nullable=False)
     destino = db.Column(db.String(100), nullable=False)
+
     dias = db.Column(db.Integer, nullable=False)
     pessoas = db.Column(db.Integer, nullable=False)
 
@@ -27,9 +31,10 @@ class Experiencia(db.Model):
 
     data_criacao = db.Column(db.DateTime, default=datetime.utcnow)
 
+
 class Comentario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     experiencia_id = db.Column(db.Integer, db.ForeignKey("experiencia.id"), nullable=False)
-    usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=True)
+    nome_usuario = db.Column(db.String(100), nullable=False)
     texto = db.Column(db.Text, nullable=False)
     data_criacao = db.Column(db.DateTime, default=datetime.utcnow)
